@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Thousand Worlds | Escape Into a Story</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --deep-space: #0b0d17;
+            --magic-purple: #6a4c93;
+            --ethereal-blue: #191d32;
+            --accent-lavender: #be95c4;
+            --starlight: #f8f9fa;
+            --gradient: linear-gradient(135deg, #240b36 0%, #0b0d17 100%);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--deep-space);
+            color: var(--starlight);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, .logo {
+            font-family: 'Cinzel', serif;
+        }
+
+        section {
+            padding: 100px 10%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(11, 13, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(190, 149, 196, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--accent-lavender);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--starlight);
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-lavender);
+            text-shadow: 0 0 10px rgba(190, 149, 196, 0.5);
+        }
+
+        /* --- Hero Section --- */
+        #home {
+            background: var(--gradient);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient floating light effect */
+        #home::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(106, 76, 147, 0.3) 0%, transparent 70%);
+            top: 10%;
+            right: -100px;
+            z-index: 0;
+            animation: float 10s infinite alternate;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--accent-lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: rgba(248, 249, 250, 0.8);
+        }
+
+        .btn {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--accent-lavender);
+            color: var(--accent-lavender);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--accent-lavender);
+            color: var(--deep-space);
+            box-shadow: 0 0 30px rgba(190, 149, 196, 0.4);
+            transform: translateY(-5px);
+        }
+
+        /* --- About Section --- */
+        #about {
+            background: #12141d;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--accent-lavender);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=1000') center/cover;
+            border-radius: 5px;
+            box-shadow: 20px 20px 0px var(--magic-purple);
+        }
+
+        /* --- Store/Genres Section --- */
+        #store {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .genre-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            border-radius: 15px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .genre-card:hover {
+            background: rgba(106, 76, 147, 0.2);
+            border-color: var(--accent-lavender);
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .genre-card h3 {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* --- Contact Section --- */
+        #contact {
+            background: #090b11;
+            text-align: center;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .contact-info-block {
+            flex: 1;
+            min-width: 280px;
+            padding: 30px;
+            background: rgba(190, 149, 196, 0.05);
+            border-radius: 10px;
+        }
+
+        .contact-info-block h4 {
+            color: var(--accent-lavender);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        /* --- Animations --- */
+        @keyframes float {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-30px, 40px); }
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 5%;
+            }
+            .nav-links {
+                display: none; /* In a real site, add a hamburger menu here */
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            #about {
+                grid-template-columns: 1fr;
+                padding: 60px 5%;
+            }
+            section {
+                padding: 80px 5%;
+            }
+            .about-image {
+                height: 300px;
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">A Thousand Worlds</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Our Origin</a></li>
+            <li><a href="#store">The Collection</a></li>
+            <li><a href="#contact">Visit Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="hero-content">
+            <h1>Escape Into Every Realm</h1>
+            <p>A sanctuary where stories breathe and imagination knows no borders.</p>
+            <a href="#store" class="btn">Browse the Archive</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="about-text">
+            <h2>Our Origin Story</h2>
+            <p>Founded in a small corner of the world with a grand vision, <strong>A Thousand Worlds</strong> began as a personal library of wonders. We believe that every book is a portal to a different dimension.</p>
+            <p>From ancient mythologies to futuristic odysseys, we curate works that challenge the mind and soothe the soul. Our mission is to help every traveler find the map to their next great adventure.</p>
+        </div>
+        <div class="about-image"></div>
+    </section>
+
+    <!-- Store Preview Section -->
+    <section id="store">
+        <h2 class="section-title">Explore the Genres</h2>
+        <div class="genre-grid">
+            <div class="genre-card">
+                <h3>High Fantasy</h3>
+                <p>Dragons, ancient crowns, and magic that shapes the earth.</p>
+            </div>
+            <div class="genre-card">
+                <h3>Cyberpunk</h3>
+                <p>Neon horizons, digital ghosts, and the future of humanity.</p>
+            </div>
+            <div class="genre-card">
+                <h3>Gothic Horror</h3>
+                <p>Mist-shrouded manors and the beauty of the macabre.</p>
+            </div>
+            <div class="genre-card">
+                <h3>Lost Classics</h3>
+                <p>Timeless wisdom recovered from the depths of history.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Locate the Portal</h2>
+        <div class="contact-container">
+            <div class="contact-info-block">
+                <h4>Working Hours</h4>
+                <p>Monday — Friday: 10:00 - 20:00</p>
+                <p>Saturday: 11:00 - 22:00</p>
+                <p>Sunday: Closed for Dreaming</p>
+            </div>
+            <div class="contact-info-block">
+                <h4>Our Location</h4>
+                <p>42 Starlight Avenue</p>
+                <p>Inkwell District, The City of Books</p>
+                <p>contact@athousandworlds.com</p>
+            </div>
+        </div>
+        <div style="margin-top: 60px; font-size: 0.8rem; color: #555;">
+            &copy; 2025 A Thousand Worlds Bookstore. All rights reserved.
+        </div>
+    </section>
+
+</body>
+</html>
