@@ -407,7 +407,7 @@
         .about-image {
             width: 100%;
             height: 400px;
-            background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=1000') center/cover;
+            background: url('img/about-bookshelf.png') center/cover;
             border-radius: 5px;
             box-shadow: 20px 20px 0px var(--magic-purple);
         }
@@ -519,6 +519,84 @@
             text-transform: uppercase;
         }
 
+        /* --- Contact Form --- */
+        .contact-form {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto 0;
+            padding: 40px;
+            background: rgba(190, 149, 196, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(190, 149, 196, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-lavender);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--starlight);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-lavender);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(190, 149, 196, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px 40px;
+            background: var(--magic-purple);
+            border: none;
+            color: var(--starlight);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-lavender);
+            color: var(--deep-space);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(190, 149, 196, 0.4);
+        }
+
         /* --- Animations --- */
         @keyframes float {
             from { transform: translate(0, 0); }
@@ -549,6 +627,26 @@
             .about-image {
                 height: 300px;
                 order: -1;
+            }
+            .contact-form {
+                width: 90%;
+                padding: 25px 20px;
+                margin: 40px auto 0;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            .form-group label {
+                font-size: 0.8rem;
+            }
+            .form-group input,
+            .form-group textarea {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+            .submit-btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -601,6 +699,30 @@
         createStars();
         createShootingStars();
         createParticles();
+        
+        // Handle form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                btn.style.background = '#28a745';
+                form.reset();
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
         
         function toggleMenu() {
             const hamburger = document.querySelector('.hamburger');
@@ -721,6 +843,28 @@
                 <p>contact@athousandworlds.com</p>
             </div>
         </div>
+        
+        <!-- Contact Form -->
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="What is this about?">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        
         <div style="margin-top: 60px; font-size: 0.8rem; color: #555;">
             &copy; 2025 A Thousand Worlds Bookstore. All rights reserved.
         </div>
