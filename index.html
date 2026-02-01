@@ -28,12 +28,183 @@
             scroll-behavior: smooth;
         }
 
+        /* --- Magical Background Effects --- */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+        }
+
+        .star.large {
+            width: 4px;
+            height: 4px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Shooting stars */
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: shoot 3s infinite;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+
+        /* Magic particles */
+        .magic-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-up 8s infinite;
+        }
+
+        .particle.purple {
+            background: var(--magic-purple);
+            box-shadow: 0 0 10px var(--magic-purple);
+        }
+
+        .particle.lavender {
+            background: var(--accent-lavender);
+            box-shadow: 0 0 10px var(--accent-lavender);
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .magic-glow {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(180px);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .magic-glow.purple {
+            background: radial-gradient(circle, var(--magic-purple) 0%, transparent 70%);
+            top: -300px;
+            left: -300px;
+            animation: float-purple 12s infinite alternate ease-in-out;
+        }
+
+        .magic-glow.blue {
+            background: radial-gradient(circle, #4a90d9 0%, transparent 70%);
+            bottom: -300px;
+            right: -200px;
+            animation: float-blue 18s infinite alternate ease-in-out;
+        }
+
+        .magic-glow.pink {
+            background: radial-gradient(circle, #e040fb 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse-pink 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes float-purple {
+            from { transform: translate(0, 0); }
+            to { transform: translate(80px, 80px); }
+        }
+
+        @keyframes float-blue {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-60px, 60px); }
+        }
+
+        @keyframes pulse-pink {
+            from { opacity: 0.15; transform: translate(-50%, -50%) scale(1); }
+            to { opacity: 0.25; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--deep-space);
             color: var(--starlight);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(106, 76, 147, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(74, 144, 217, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(190, 149, 196, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         h1, h2, .logo {
@@ -280,6 +451,45 @@
             font-size: 1.5rem;
         }
 
+        .genre-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .genre-card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .genre-card:hover .genre-card-image {
+            opacity: 0.5;
+            transform: scale(1.1);
+        }
+
+        .genre-card.fantasy .genre-card-image {
+            background-image: url('img/genres-fantasy.png');
+        }
+
+        .genre-card.cyberpunk .genre-card-image {
+            background-image: url('img/genres-cyberpunk.png');
+        }
+
+        .genre-card.horror .genre-card-image {
+            background-image: url('img/genres-horror.png');
+        }
+
+        .genre-card.classics .genre-card-image {
+            background-image: url('img/genres-classic.png');
+        }
+
         /* --- Contact Section --- */
         #contact {
             background: #090b11;
@@ -343,6 +553,55 @@
         }
     </style>
     <script>
+        // Generate stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star' + (Math.random() > 0.8 ? ' large' : '');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (2 + Math.random() * 3) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Generate shooting stars
+        function createShootingStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 3; i++) {
+                const shooting = document.createElement('div');
+                shooting.className = 'shooting-star';
+                shooting.style.left = (30 + Math.random() * 60) + '%';
+                shooting.style.top = (10 + Math.random() * 30) + '%';
+                shooting.style.animationDelay = (5 + Math.random() * 10) + 's';
+                shooting.style.animationDuration = (2 + Math.random() * 2) + 's';
+                starsContainer.appendChild(shooting);
+            }
+        }
+        
+        // Generate magic particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.magic-particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle ' + (Math.random() > 0.5 ? 'purple' : 'lavender');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createStars();
+        createShootingStars();
+        createParticles();
+        
         function toggleMenu() {
             const hamburger = document.querySelector('.hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
@@ -370,6 +629,12 @@
     </script>
 </head>
 <body>
+    <!-- Magical Background Elements -->
+    <div class="stars"></div>
+    <div class="magic-particles"></div>
+    <div class="magic-glow purple"></div>
+    <div class="magic-glow blue"></div>
+    <div class="magic-glow pink"></div>
 
     <!-- Navigation -->
     <nav>
@@ -416,19 +681,23 @@
     <section id="store">
         <h2 class="section-title">Explore the Genres</h2>
         <div class="genre-grid">
-            <div class="genre-card">
+            <div class="genre-card fantasy">
+                <div class="genre-card-image"></div>
                 <h3>High Fantasy</h3>
                 <p>Dragons, ancient crowns, and magic that shapes the earth.</p>
             </div>
-            <div class="genre-card">
+            <div class="genre-card cyberpunk">
+                <div class="genre-card-image"></div>
                 <h3>Cyberpunk</h3>
                 <p>Neon horizons, digital ghosts, and the future of humanity.</p>
             </div>
-            <div class="genre-card">
+            <div class="genre-card horror">
+                <div class="genre-card-image"></div>
                 <h3>Gothic Horror</h3>
                 <p>Mist-shrouded manors and the beauty of the macabre.</p>
             </div>
-            <div class="genre-card">
+            <div class="genre-card classics">
+                <div class="genre-card-image"></div>
                 <h3>Lost Classics</h3>
                 <p>Timeless wisdom recovered from the depths of history.</p>
             </div>
